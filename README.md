@@ -122,13 +122,21 @@ sudo apt-get install php7.4-mbstring
 sudo apt-get install php7.4-mysql
 ```
 
+# Projects: Introduction
+We are going to create a blog where we are going to manage different type of users, and usual blog applications, like posting or commenting an article. 
+Here is the CDM for our project:  
+![image](https://user-images.githubusercontent.com/61125395/122682218-7336d500-d1f8-11eb-8645-eca4623cf50e.png)
+
+
 # Projects: Creation and Management
 
 1 Create a new project using symfony CLI
   - For our porject  
 ```console
-symfony new <project_name> --version=5.3 --full
+symfony new Simplon-Project9-Symfony5.3-Blog --version=5.3 --full
 ```
+![image](https://user-images.githubusercontent.com/61125395/122682357-20a9e880-d1f9-11eb-8abb-38c98d738f2e.png)
+
 
 Some other methods to create projects:  
   - Create a project using maintained branch  
@@ -162,6 +170,64 @@ composer install
 cd <project_name>/
 symfony server:start
 ```
+
+# Projects: About Routes
+
+1. Create controller using maker  
+```console
+php bin/console make:controller
+```
+Specifiy the name you want for the controller, for our project we are going to create first of all, 2 controllers, one to manage posts, and another one to manage pages
+  ![image](https://user-images.githubusercontent.com/61125395/122682413-79798100-d1f9-11eb-8d6f-cbcac0181c54.png)   
+  And we can see that 2 files were created, the controller("src/Controller/<Name>Controller.php") and the view("templates/<name>/index.html.twig")  
+  We can check thoses files, for example the ones for posts:  
+  The controller:  
+  ```php
+  <?php
+
+  namespace App\Controller;
+
+  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+  use Symfony\Component\HttpFoundation\Response;
+  use Symfony\Component\Routing\Annotation\Route;
+
+  class PostController extends AbstractController
+  {
+      /**
+       * @Route("/post", name="post")
+       */
+      public function index(): Response
+      {
+          return $this->render('post/index.html.twig', [
+              'controller_name' => 'PostController',
+          ]);
+      }
+  }
+  ```  
+  The view:  
+  ```php
+  {% extends 'base.html.twig' %}
+
+  {% block title %}Hello PostController!{% endblock %}
+
+  {% block body %}
+  <style>
+      .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+      .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+  </style>
+
+  <div class="example-wrapper">
+      <h1>Hello {{ controller_name }}! ✅</h1>
+
+      This friendly message is coming from:
+      <ul>
+          <li>Your controller at <code><a href="{{ '/mnt/c/wamp64/www/simplon/symfony/Simplon-Project9-Symfony5.3-Blog/src/Controller/PostController.php'|file_link(0) }}">src/Controller/PostController.php</a></code></li>
+          <li>Your template at <code><a href="{{ '/mnt/c/wamp64/www/simplon/symfony/Simplon-Project9-Symfony5.3-Blog/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
+      </ul>
+  </div>
+  {% endblock %}
+  ```
+  We can check the page using the defined route, in our post controller, this is "/post", so we need to go from our browser here ""
 
 # Download theme to integrate into symfony projects
 
