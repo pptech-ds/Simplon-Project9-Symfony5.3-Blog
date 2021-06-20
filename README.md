@@ -99,7 +99,7 @@ wget https://get.symfony.com/cli/installer -O - | bash
   mv /home/pras/.symfony/bin/symfony /usr/local/bin/symfony
   ```
 
-## For our specific needs
+## For our project specific needs
 
 1. update and upgrade your env:
 
@@ -124,31 +124,42 @@ sudo apt-get install php7.4-mysql
 
 # Projects
 
-1. Create a new project using symfony CLI
-
+1 Create a new project using symfony CLI
+  - For our porject  
 ```console
-symfony new my_project_name --version=next --full
+symfony new <project_name> --version=5.3 --full
 ```
 
-2. Create symfony demo project to have an example
-
+Some other methods to create projects:  
+  - Create a project using maintained branch  
 ```console
-symfony new my_project_name --demo
+symfony new <project_name> --full
+```
+  - Create a project using LTS (Long Term Support)  
+```console
+symfony new <project_name> --version=lts
+```
+  - Create a project using developement version  
+```console
+symfony new <project_name> --version=next
+```
+  - Create symfony demo project to have an example
+```console
+symfony new <project_name> --demo
 ```
 
 3. Setting up an Existing Symfony Project
 
 ```console
-cd projects/
-git clone ...
-cd my-project/
+git clone <project_git_path>
+cd <project_name>/
 composer install
 ```
 
 4. Running Symfony Applications
 
 ```console
-cd my-project/
+cd <project_name>/
 symfony server:start
 ```
 
