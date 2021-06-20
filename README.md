@@ -398,7 +398,7 @@ We can see that this theme has some static html pages with his CSS, JS and asset
    
   {% endblock %}
   ```   
-  - Let's check one by one our updates in teh browser:  
+  - Let's check one by one our updates in the browser:  
     - Home:  
     ![image](https://user-images.githubusercontent.com/61125395/122689409-a7bf8680-d222-11eb-997e-3bd1ae4e6ed6.png)  
     - About:  
@@ -407,6 +407,51 @@ We can see that this theme has some static html pages with his CSS, JS and asset
     ![image](https://user-images.githubusercontent.com/61125395/122689431-c32a9180-d222-11eb-9533-4d97a885edfb.png)
     - Contact:  
     ![image](https://user-images.githubusercontent.com/61125395/122689437-cc1b6300-d222-11eb-870c-80f9916a3635.png)
+
+
+# Project: User Management  
+1. To check some user actions we will need an SMTP server and mail box, for developement there are some useful tools for that, for our needs we are going to use "MailHog", official git repo "https://github.com/mailhog/MailHog".  
+  - For Ubuntu users, you need to install it like that:  
+  ```console
+  sudo apt-get -y install golang-go
+  go get github.com/mailhog/MailHog
+  ```  
+  - To launch MailHog just do from your terminal  
+  ```console
+  ~/go/bin/MailHog
+  ```
+  - You need to see the follwing mailbox at adress "http://localhost:8025/":  
+  ![image](https://user-images.githubusercontent.com/61125395/122689561-d7bb5980-d223-11eb-9896-4defb946cfc0.png)
+
+2. In your config file ".env", you need to update the MAILER_DSN:  
+  ```apacheconf
+  ###> symfony/mailer ###
+  MAILER_DSN=smtp://localhost:1025
+  ###< symfony/mailer ###
+  ```
+
+3. Let's create user entity using the maker, answer questions like the screenshot, all values in "[value]" are by default, just press enter if you agree with that value.    
+  ```console
+  php bin/console make:user
+  ```  
+![image](https://user-images.githubusercontent.com/61125395/122689699-f837e380-d224-11eb-9402-fc49beea3480.png)
+  We can see that "User" entity and "UserRepository" are created and updated, let's check that enity and do some corrections if necessary (usually not needed)  
+
+4. Let's Create the migration file to generate table in our SQL database:  
+  ```console
+  php bin/console make:migration
+  ```
+  ![image](https://user-images.githubusercontent.com/61125395/122689843-e7d43880-d225-11eb-93a7-53893aab794b.png)  
+  let's check that created file to be ensure what is going to happend in our database.  
+
+5. Let's launch the migration to create the table into our database:  
+  ```console
+  php bin/console doctrine:migrations:migrate
+  ```
+  ![image](https://user-images.githubusercontent.com/61125395/122689884-38e42c80-d226-11eb-8699-b64a046035be.png)  
+  You have to see the created table into your database:  
+  ![image](https://user-images.githubusercontent.com/61125395/122689921-53b6a100-d226-11eb-8df8-e5573612d908.png)  
+  There is also another table to control migrations.  
 
 
 
