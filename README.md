@@ -135,7 +135,9 @@ Here is the CDM for our project:
 ```console
 symfony new Simplon-Project9-Symfony5.3-Blog --version=5.3 --full
 ```
-![image](https://user-images.githubusercontent.com/61125395/122682357-20a9e880-d1f9-11eb-8abb-38c98d738f2e.png)
+![image](https://user-images.githubusercontent.com/61125395/122682357-20a9e880-d1f9-11eb-8abb-38c98d738f2e.png)  
+if the project was correctly created you have to see this page at "https://localhost:8000/":  
+![image](https://user-images.githubusercontent.com/61125395/122682955-995e7400-d1fc-11eb-9f8c-7d04e67cefc6.png)
 
 
 Some other methods to create projects:  
@@ -171,6 +173,48 @@ cd <project_name>/
 symfony server:start
 ```
 
+# Project: Database  
+1. Once the project is created, we need to create our database to manager our project, so we are going to create it using PhpMyAdmin:   
+![image](https://user-images.githubusercontent.com/61125395/122682636-f822ee00-d1fa-11eb-9b35-1493700ae617.png)  
+2. One the database is created, we need to update the file ".env" to change database access credentials (for real project we need to create a file ".env.local" where we will
+add credential informations, but for our example, project will be on our local machine, and all credentials are defined by default), we changed only the value for "DATABASE_URL" for the moment, by adding SQL database access credentials:   
+```apacheconf
+# In all environments, the following files are loaded if they exist,
+# the latter taking precedence over the former:
+#
+#  * .env                contains default values for the environment variables needed by the app
+#  * .env.local          uncommitted file with local overrides
+#  * .env.$APP_ENV       committed environment-specific defaults
+#  * .env.$APP_ENV.local uncommitted environment-specific overrides
+#
+# Real environment variables win over .env files.
+#
+# DO NOT DEFINE PRODUCTION SECRETS IN THIS FILE NOR IN ANY OTHER COMMITTED FILES.
+#
+# Run "composer dump-env prod" to compile .env files for production use (requires symfony/flex >=1.2).
+# https://symfony.com/doc/current/best_practices.html#use-environment-variables-for-infrastructure-configuration
+
+###> symfony/framework-bundle ###
+APP_ENV=dev
+APP_SECRET=6cb870044dfe547bec11f70bd9022d68
+###< symfony/framework-bundle ###
+
+###> symfony/mailer ###
+# MAILER_DSN=smtp://localhost
+###< symfony/mailer ###
+
+###> doctrine/doctrine-bundle ###
+# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
+# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
+#
+# DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+DATABASE_URL="mysql://root:@127.0.0.1:3306/simplon-project9-symfony5.3-Blog?serverVersion=5.7"
+# DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
+###< doctrine/doctrine-bundle ###
+```
+
+
+
 # Projects: About Routes
 
 1. Create controller using maker  
@@ -181,7 +225,7 @@ Specifiy the name you want for the controller, for our project we are going to c
   ![image](https://user-images.githubusercontent.com/61125395/122682413-79798100-d1f9-11eb-8d6f-cbcac0181c54.png)   
   And we can see that 2 files were created, the controller("src/Controller/<Name>Controller.php") and the view("templates/<name>/index.html.twig")  
   We can check thoses files, for example the ones for posts:  
-  The controller:  
+  The Controller:  
   ```php
   <?php
 
@@ -204,7 +248,7 @@ Specifiy the name you want for the controller, for our project we are going to c
       }
   }
   ```  
-  The view:  
+  The View:  
   ```php
   {% extends 'base.html.twig' %}
 
@@ -227,7 +271,50 @@ Specifiy the name you want for the controller, for our project we are going to c
   </div>
   {% endblock %}
   ```
-  We can check the page using the defined route, in our post controller, this is "/post", so we need to go from our browser here ""
+  We can check the page using the defined route, in our post controller, this is "/post", so we need to go from our browser here "https://localhost:8000/post"  
+  ![image](https://user-images.githubusercontent.com/61125395/122682831-00c7f400-d1fc-11eb-93e5-16c2d051b670.png)
+
+
+2. Change that files to have 2 routes to manage posts, one to have all posts, and another one to manage one post. Same for pages, we need to have one page to manage about, and another one to manage contact page. So we are going change controllers and views to have what we need.
+
+  - PostController.php: We are going change created file by updated necessary codes, we add 2 methods into that controller, one to access to "home" which will be our home page,  and another one to access to "view" which will access to specific post by using method "GET" to get post ID. You can notice that I also changed value of "controller_name" into the render, inject 2 different strings to see the changes. 
+  ```php
+  <?php
+
+  namespace App\Controller;
+
+  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+  use Symfony\Component\HttpFoundation\Response;
+  use Symfony\Component\Routing\Annotation\Route;
+
+  class PostController extends AbstractController
+  {
+      /**
+       * @Route("/", name="home")
+       */
+      public function home(): Response
+      {
+          return $this->render('post/home.html.twig', [
+              'controller_name' => 'PostController, in view home',
+          ]);
+      }
+
+      /**
+       * @Route("/post/{id}", name="post_view", methods={"GET"}, requirements={"id"="\d+"})
+       */
+      public function view(): Response
+      {
+          return $this->render('post/view.html.twig', [
+              'controller_name' => 'PostController, in view view',
+          ]);
+      }
+  }
+  ```
+  we can check that updates using our browser and trying to access to our page.  
+  For "home" you just need to go "https://localhost:8000/" because we defined "/" in our route path in that method.  
+  ![image](https://user-images.githubusercontent.com/61125395/122683453-9618b780-d1ff-11eb-8ee5-21cc119be649.png)
+
+
 
 # Download theme to integrate into symfony projects
 
