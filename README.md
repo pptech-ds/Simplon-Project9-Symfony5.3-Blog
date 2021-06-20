@@ -122,7 +122,7 @@ sudo apt-get install php7.4-mbstring
 sudo apt-get install php7.4-mysql
 ```
 
-# Projects
+# Projects: Creation and Management
 
 1 Create a new project using symfony CLI
   - For our porject  
