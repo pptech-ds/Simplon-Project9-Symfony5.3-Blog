@@ -454,6 +454,83 @@ We can see that this theme has some static html pages with his CSS, JS and asset
   There is also another table to control migrations.  
 
 
+# Project: Authentification System  
+1. Create authentification system using the maker:  
+```console
+php bin/console make:auth
+```
+Answer questions like snapshot below   
+![image](https://user-images.githubusercontent.com/61125395/122696676-ee71a880-d243-11eb-9ab1-6552d64afb0b.png)  
+We can notice that some files like the controller and templates have been created  
+And update file "src\Security\UserAuthenticator.php" as belown, change the redirection to "home" page   
+```php
+public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+{
+    if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+        return new RedirectResponse($targetPath);
+    }
+
+    // For example:
+    return new RedirectResponse($this->urlGenerator->generate('home'));
+    // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+}
+```
+
+# Project: User Registration  
+1. Create User registration using the maker  
+```console
+php bin/console make:registration-form
+```
+Answer question like snapshot  
+![image](https://user-images.githubusercontent.com/61125395/122697078-d77f8600-d244-11eb-87b1-f60a660938f2.png)  
+![image](https://user-images.githubusercontent.com/61125395/122697101-e9f9bf80-d244-11eb-90ba-a2bd0a95d10a.png)  
+We can notice that user files were updated and some new files have been created  
+We have also some guideline for next steps  
+
+2. Follwing next steps, we need to install a missing bundle  
+```console
+composer require symfonycasts/verify-email-bundle
+```
+![image](https://user-images.githubusercontent.com/61125395/122697398-87ed8a00-d245-11eb-95d9-fdf1c14cfec4.png)  
+Once this bundle is correctly installed we need to update the "TODO" part in "src/Controller/RegistrationController.php" to redirect in correct page "home" once email will be verified.  
+And we need to add message flash in our model ("src/templates/clean.html.twig" after "\<header\>" section  
+```twig
+{% for flashError in app.flashes('verify_email_error') %}
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endfor %}
+
+{% for flashSuccess in app.flashes('success') %}
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="alert alert-success" role="alert">{{ flashSuccess }}</div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endfor %}
+```
+
+3. We need to Run "php bin/console make:migration" to generate a migration for the newly added User::isVerified property  
+![image](https://user-images.githubusercontent.com/61125395/122698293-51187380-d247-11eb-8780-aa4d7340f832.png)  
+
+4. Then check the created migration file and perfom the migration  
+![image](https://user-images.githubusercontent.com/61125395/122698365-79a06d80-d247-11eb-96d2-fded81c7b6da.png)  
+We can in our database, table "user", a new attribut "is_verified" has been created  
+![image](https://user-images.githubusercontent.com/61125395/122698470-a785b200-d247-11eb-86dc-48cbdc222809.png)
+
+
+
+
 
 
 
