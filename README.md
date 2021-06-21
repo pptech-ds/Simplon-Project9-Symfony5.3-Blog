@@ -493,6 +493,17 @@ composer require symfonycasts/verify-email-bundle
 ```
 ![image](https://user-images.githubusercontent.com/61125395/122697398-87ed8a00-d245-11eb-95d9-fdf1c14cfec4.png)  
 Once this bundle is correctly installed we need to update the "TODO" part in "src/Controller/RegistrationController.php" to redirect in correct page "home" once email will be verified.  
+If your registration process doesn't work as expected, meaning, once you have been registered you are automatically logged in instead, you may need to comment some lines in method "register" in controller "src/Controller/RegistrationController.php", like:  
+```php
+// return $guardHandler->authenticateUserAndHandleSuccess(
+//     $user,
+//     $request,
+//     $authenticator,
+//     'main' // firewall name in security.yaml
+// );
+```
+
+
 And we need to add message flash in our model ("src/templates/clean.html.twig" after "\<header\>" section  
 ```twig
 {% for flashError in app.flashes('verify_email_error') %}
