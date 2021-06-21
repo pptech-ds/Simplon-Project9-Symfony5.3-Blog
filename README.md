@@ -186,6 +186,11 @@ composer install
 cd <project_name>/
 symfony server:start
 ```
+or  
+```console
+cd <project_name>/
+symfony serve
+```
 
 # Project-Database  
 1. Once the project is created, we need to create our database to manager our project, so we are going to create it using PhpMyAdmin:   
