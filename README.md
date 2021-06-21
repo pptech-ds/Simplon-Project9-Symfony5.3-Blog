@@ -493,7 +493,7 @@ composer require symfonycasts/verify-email-bundle
 ```
 ![image](https://user-images.githubusercontent.com/61125395/122697398-87ed8a00-d245-11eb-95d9-fdf1c14cfec4.png)  
 Once this bundle is correctly installed we need to update the "TODO" part in "src/Controller/RegistrationController.php" to redirect in correct page "home" once email will be verified.  
-If your registration process doesn't work as expected, meaning, once you have been registered you are automatically logged in instead, you may need to comment some lines in method "register" in controller "src/Controller/RegistrationController.php", like:  
+If your registration process doesn't work as expected, meaning, once you have been registered you are automatically logged in instead of having just an email which was sent, you may need to comment some lines in method "register" in controller "src/Controller/RegistrationController.php", like:  
 ```php
 // return $guardHandler->authenticateUserAndHandleSuccess(
 //     $user,
