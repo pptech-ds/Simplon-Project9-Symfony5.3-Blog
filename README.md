@@ -1,6 +1,20 @@
-# Install For Ubuntu Users
+# Table of Contents 
+- [Install-For-Ubuntu-Users](#Install-For-Ubuntu-Users)  
+  - [Install-PHP-X.X.x](#Install-PHP-X.X.x)  
+  - [Install-Composer](#Install-Composer)
+  - [Install-Symfony](#Install-Symfony)  
+  - [For-Our-Project-Specific-Needs](#For-Our-Project-Specific-Needs)  
+- [Project-Introduction](#Project-Introduction)   
+- [Project-Creation-And-Management](#Project-Creation-And-Management)  
+- [Project-Database](#Project-Database)  
+- [Project-About-Routes](#Project-About-Routes)  
+- [Project-User-Management](#Project-User-Management)  
+- [Project-Authentification-System](#Project-Authentification-System)  
+- [Project-User-Registration](#Project-User-Registration)  
 
-## Install PHP (5.6, 7.x, 8.0) on Ubuntu Using PPA
+# Install-For-Ubuntu-Users
+
+## Install-PHP-X.X.x
 
 1. First start by adding Ondřej Surý PPA to install different versions of PHP – PHP 5.6, PHP 7.x, and PHP 8.0 on the Ubuntu system.
 
@@ -56,7 +70,7 @@ sudo update-alternatives --set php /usr/bin/php7.4
 php -i | grep "Loaded Configuration File"
 ```
 
-## Install composer
+## Install-Composer
 
 All details in [this page](https://getcomposer.org/download/)  
 Move into a temporary directory and the following command lines:
@@ -70,7 +84,7 @@ sudo mv composer.phar /usr/local/bin/composer
 composer self-update
 ```
 
-## Install Symfony
+## Install-Symfony
 
 All details in [this page](https://symfony.com/download)
 
@@ -99,7 +113,7 @@ wget https://get.symfony.com/cli/installer -O - | bash
   mv /home/pras/.symfony/bin/symfony /usr/local/bin/symfony
   ```
 
-## For our project specific needs
+## For-Our-Project-Specific-Needs
 
 1. update and upgrade your env:
 
@@ -122,13 +136,13 @@ sudo apt-get install php7.4-mbstring
 sudo apt-get install php7.4-mysql
 ```
 
-# Projects: Introduction
+# Project-Introduction
 We are going to create a blog where we are going to manage different type of users, and usual blog applications, like posting or commenting an article. 
 Here is the CDM for our project:  
 ![image](https://user-images.githubusercontent.com/61125395/122682218-7336d500-d1f8-11eb-8645-eca4623cf50e.png)
 
 
-# Project: Creation and Management
+# Project-Creation-And-Management
 
 1 Create a new project using symfony CLI
   - For our porject  
@@ -173,7 +187,7 @@ cd <project_name>/
 symfony server:start
 ```
 
-# Project: Database  
+# Project-Database  
 1. Once the project is created, we need to create our database to manager our project, so we are going to create it using PhpMyAdmin:   
 ![image](https://user-images.githubusercontent.com/61125395/122682636-f822ee00-d1fa-11eb-9b35-1493700ae617.png)  
 2. One the database is created, we need to update the file ".env" to change database access credentials (for real project we need to create a file ".env.local" where we will
@@ -215,7 +229,7 @@ DATABASE_URL="mysql://root:@127.0.0.1:3306/simplon-project9-symfony5.3-Blog?serv
 
 
 
-# Project: About Routes
+# Project-About-Routes
 
 1. Create controller using maker  
 ```console
@@ -409,7 +423,7 @@ We can see that this theme has some static html pages with his CSS, JS and asset
     ![image](https://user-images.githubusercontent.com/61125395/122689437-cc1b6300-d222-11eb-870c-80f9916a3635.png)
 
 
-# Project: User Management  
+# Project-User-Management  
 1. To check some user actions we will need an SMTP server and mail box, for developement there are some useful tools for that, for our needs we are going to use "MailHog", official git repo "https://github.com/mailhog/MailHog".  
   - For Ubuntu users, you need to install it like that:  
   ```console
@@ -454,7 +468,7 @@ We can see that this theme has some static html pages with his CSS, JS and asset
   There is also another table to control migrations.  
 
 
-# Project: Authentification System  
+# Project-Authentification-System  
 1. Create authentification system using the maker:  
 ```console
 php bin/console make:auth
@@ -476,7 +490,7 @@ public function onAuthenticationSuccess(Request $request, TokenInterface $token,
 }
 ```
 
-# Project: User Registration  
+# Project-User-Registration  
 1. Create User registration using the maker  
 ```console
 php bin/console make:registration-form
