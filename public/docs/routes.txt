@@ -1,0 +1,12 @@
+
+
+Name                            Url                         Fonctionnality
+app_register                    /register                   user registration
+app_verify_email                /verify/email               check email
+app_reset_password              /reset/{token}              reset password
+app_login                       /login                      login
+app_logout                      /logout                     logout
+post_home                       /                           home page
+post_view                       /post/{id}                  article
+page_about                      /about                      page about
+page_contact                    /contact                    page contact

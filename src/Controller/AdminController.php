@@ -72,6 +72,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/post/add.html.twig', [
             'form' => $form->createView(),
+            'bg_image' => 'about-bg.jpg',
         ]);
     }
 }

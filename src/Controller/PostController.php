@@ -2,33 +2,39 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Post;
+use App\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
     /**
      * @Route("/", name="post_home")
      */
-    public function home(): Response
+    public function home(PostRepository $postRepository): Response
     {
+        $posts = $postRepository->findAll();
+        // dd($posts);
+
         return $this->render('post/index.html.twig', [
             'bg_image' => 'home-bg.jpg', 
+            'posts' => $posts,
         ]);
     }
 
      /**
-     * @Route("/post/{id}", name="post_view", methods={"GET"}, requirements={"id"="\d+"})
+     * ---Route("/post/{id}", name="post_view", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/post/{slug}", name="post_view", methods={"GET"})
      */
-    public function view($id): Response
+    public function view(Post $post): Response
     {
+        // dd($post);
+
         return $this->render('post/view.html.twig', [
-            'post' => [
-                'title' => 'Le titre de l\'article',
-                'content' => 'Le super contenu de notre article'
-            ],
-            'bg_image' => 'post-bg.jpg', 
+            'post' => $post,
+            'bg_image' => $post->getImage(), 
         ]);
     }
 }
