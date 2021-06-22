@@ -24,6 +24,17 @@ class PostController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test(PostRepository $postRepository): Response
+    {
+        $posts = $postRepository->findOldPosts();
+        dd($posts);
+
+    }
+
      /**
      * ---Route("/post/{id}", name="post_view", methods={"GET"}, requirements={"id"="\d+"})
      * @Route("/post/{slug}", name="post_view", methods={"GET"})
