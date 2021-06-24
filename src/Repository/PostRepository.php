@@ -54,7 +54,7 @@ class PostRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT p.id, p.slug, p.title, p.createdAt
+            'SELECT p.id, p.slug, p.title, p.createdAt, p.image
             FROM App\Entity\Post p
             WHERE p.active = :status
             ORDER BY p.createdAt ASC'

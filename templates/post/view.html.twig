@@ -10,13 +10,36 @@
         <article class="mb-4">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="col-md-12 col-lg-8 col-xl-9">
                         <p>{{ post.content | raw}}</p>
                         <p class="post-meta">
                                 Ecrit par <a href="#!">{{post.user.email}}</a>
                                 {{post.createdAt | ago}} - Classé dans {{ post.category.name }}
                             </p>
                     </div>
+
+                    <div class="col-md-12 col-lg-4 col-xl-3">
+                    <h1 class="post-title">Archives</h2>
+                    
+                    {% for post in oldPosts %}
+                        
+                        <!-- Post preview-->
+                        <div>
+                            
+                            <a href={{ path('post_view', {slug: post.slug }) }}>
+                                {{ post.title }}
+                                <img src={{ post.image }} alt="" style="width: 100%">
+                                {{post.createdAt | ago}}
+                            </a>
+                            
+                        </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+
+                    {% endfor %}
+
+
+                </div>
                 </div>
             </div>
         </article>
