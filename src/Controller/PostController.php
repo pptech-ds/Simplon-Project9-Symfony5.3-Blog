@@ -30,7 +30,7 @@ class PostController extends AbstractController
      */
     public function test(PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findOldPosts();
+        $posts = $postRepository->findLastPosts();
         dd($posts);
 
     }
