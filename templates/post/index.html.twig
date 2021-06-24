@@ -35,28 +35,7 @@
                     <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
                 </div>
 
-                <div class="col-md-12 col-lg-4 col-xl-3">
-                    <h1 class="post-title">Archives</h2>
-                    
-                    {% for post in oldPosts %}
-                        
-                        <!-- Post preview-->
-                        <div>
-                            
-                            <a href={{ path('post_view', {slug: post.slug }) }}>
-                                {{ post.title }}
-                                <img src={{ post.image }} alt="" style="width: 100%">
-                                {{post.createdAt | ago}}
-                            </a>
-                            
-                        </div>
-                        <!-- Divider-->
-                        <hr class="my-4" />
-
-                    {% endfor %}
-
-
-                </div>
+                {% include 'shared/_sidebar.html.twig' %}
             </div>
         </div>
         

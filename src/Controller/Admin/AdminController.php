@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Post;
 use App\Form\PostType;
@@ -23,30 +23,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/category/add", name="category_add")
-     */
-    public function addCategory(Request $request): Response
-    {
-        $category = new Category();
-        // dd($category);
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form);
-            // dd($category);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
-            return $this->redirectToRoute('admin_home');
-        }
-
-        return $this->render('admin/category/add.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 
 
     /**
