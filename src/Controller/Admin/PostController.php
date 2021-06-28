@@ -46,7 +46,7 @@ class PostController extends AbstractController
 
 
     /**
-     * @Route("/admin/post/activate/{id}", name="admin_post_activate")
+     * @Route("/admin/post/activate/{id}", name="admin_post_activate", requirements={"id"="\d+"})
      */
     public function activatePost(Post $post): Response
     {
@@ -58,6 +58,25 @@ class PostController extends AbstractController
         $em->flush();
 
         return new Response('true');
+    }
+
+
+
+    /**
+     * @Route("/admin/post/delete/{id}", name="admin_post_delete", requirements={"id"="\d+"})
+     */
+    public function deletePost(Post $post): Response
+    {
+        // dd($post);
+        // $post->setActive( ($post->getActive()) ?  false : true );
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($post);
+        $em->flush();
+
+        $this->addFlash('success', 'Votre article a été supprimé avec succes !');
+
+        return $this->redirectToRoute('admin_post_index');
     }
 
 
