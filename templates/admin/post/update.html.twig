@@ -1,0 +1,33 @@
+{% extends 'admin/sbadmin.html.twig' %}
+
+{% block title %}Ajouter un post{% endblock %}
+
+
+{% block body %}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+
+            <h1>Modifier un post</h1>
+            {# {{form(form)}} #}
+
+            {{ form_start(form) }}
+                {{ form_row(form.title) }}
+                {{ form_row(form.content) }}
+                {{ form_row(form.image) }}
+                {{ form_row(form.category) }}
+                
+                {# {{ form_row(form.Valider) }} #}
+
+                <button type="submit" class="btn btn-lg btn-primary my-3" action="{{ path('admin_post_index') }}">Valider</button>
+            {{ form_end(form) }}
+
+        
+        
+    </div>
+</main>
+{% endblock %}

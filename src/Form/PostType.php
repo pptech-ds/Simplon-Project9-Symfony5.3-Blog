@@ -31,7 +31,7 @@ class PostType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class
             ])
-            ->add('Valider', SubmitType::class)
+            // ->add('Valider', SubmitType::class)
         ;
     }
 
