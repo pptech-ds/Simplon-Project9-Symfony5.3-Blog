@@ -25,6 +25,11 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form);
             // dd($post);
+
+            $post->setUser($this->getUser());
+
+            $post->setActive(false);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
@@ -41,6 +46,23 @@ class PostController extends AbstractController
 
 
     /**
+     * @Route("/admin/post/activate/{id}", name="admin_post_activate")
+     */
+    public function activatePost(Post $post): Response
+    {
+        // dd($post);
+        $post->setActive( ($post->getActive()) ?  false : true );
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($post);
+        $em->flush();
+
+        return new Response('true');
+    }
+
+
+
+    /**
      * @Route("/admin/post/", name="admin_post_index")
      */
     public function indexPost(PostRepository $postRepository): Response
@@ -49,7 +71,6 @@ class PostController extends AbstractController
             'posts' => $postRepository->findAll(),
         ]);
     }
-
 
 
     /**
